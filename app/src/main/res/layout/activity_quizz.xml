@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="iut.paci.classroomcommunity.QuizzActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/top">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="J1"
+            android:textSize="25dp"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/J1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:text="temps restant"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:text="J2"
+            android:layout_alignParentRight="true"
+            android:id="@+id/J2"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top"
+        android:text="Ceci est la question 1"
+        android:textSize="50dp"
+        android:gravity="center_horizontal"
+        android:id="@+id/question"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/question">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/question"
+            android:rowCount="4"
+            android:columnCount="1">
+
+            <Button
+                android:layout_width="match_parent"
+                android:text="Réponse1"/>
+            <Button
+                android:layout_width="match_parent"
+                android:text="Réponse 2"/>
+            <Button
+                android:layout_width="match_parent"
+                android:text="Réponse 3"/>
+            <Button
+                android:layout_width="match_parent"
+                android:text="Réponse 4"/>
+        </GridLayout>
+    </ScrollView>
+
+
+</RelativeLayout>
