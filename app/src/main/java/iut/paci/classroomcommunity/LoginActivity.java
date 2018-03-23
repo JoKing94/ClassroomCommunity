@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(tv_log.getText().toString().equals("root") && tv_pass.getText().toString().equals("root"))
                 {
-                    Intent i = new Intent(getApplicationContext(),AmisActivityList.class);
+                    Intent i = new Intent(getApplicationContext(),MainActivity.class);
                     Bundle b = new Bundle();
                     b.putString("login",tv_log.getText().toString());
                     i.putExtras(b);
