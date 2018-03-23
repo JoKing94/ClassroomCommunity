@@ -7,6 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
+//import com.google.gson.*;
+
+
+
 /**
  * Created by AurélienPC on 23/03/2018.
  */

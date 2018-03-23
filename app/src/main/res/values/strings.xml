@@ -2,4 +2,6 @@
     <string name="app_name">ClassroomCommunity</string>
     <string name="first_item">item 1</string>
     <string name="second_item">item 2</string>
+    <string name="ouverture">Open</string>
+    <string name="fermeture">Close</string>
 </resources>
