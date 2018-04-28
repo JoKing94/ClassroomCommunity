@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="iut.paci.classroomcommunity.MainActivity">
+    tools:context="iut.paci.classroomcommunity.MainActivity"
+    android:background="@drawable/sphinx_background">
     
     <android.support.v4.widget.DrawerLayout
         android:layout_width="200dp"
@@ -26,4 +27,14 @@
 
     </android.support.v4.widget.DrawerLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cliquez sur le menu pour commencer"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/grey"
+        android:textSize="20dp"
+        android:layout_marginBottom="45dp"/>
+
+</RelativeLayout>

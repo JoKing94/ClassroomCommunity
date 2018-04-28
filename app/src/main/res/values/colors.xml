@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="visible">#00FF00</color>
     <color name="absent">#FF0000</color>
+    <color name="grey">#555555</color>
 </resources>

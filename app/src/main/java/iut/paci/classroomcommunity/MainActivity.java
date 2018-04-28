@@ -1,5 +1,6 @@
 package iut.paci.classroomcommunity;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FragmentManager fm;
     private DrawerLayout drawer;
     private NavigationView nav;
+    String login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Intent i = getIntent();
+        Bundle b = i.getExtras();
+        login = b.getString("login");
     }
 
     @Override
@@ -44,7 +49,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId())
         {
             case R.id.nav_first:
-                fm.beginTransaction().replace(R.id.contentFL,new FirstFragment()).commit();
+                //fm.beginTransaction().replace(R.id.contentFL,new FirstFragment()).commit();
+                Intent i = new Intent(getApplicationContext(),AmisActivityList.class);
+                Bundle b = new Bundle();
+                b.putString("login",login);
+                i.putExtras(b);
+                startActivity(i);
             case R.id.nav_second:
                 System.out.println("bite");
                 break;
