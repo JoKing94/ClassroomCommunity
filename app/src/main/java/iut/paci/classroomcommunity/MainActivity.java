@@ -24,6 +24,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent i = getIntent();
+        Bundle b = i.getExtras();
+        login = b.getString("login");
         fm = getSupportFragmentManager();
         drawer = (DrawerLayout) findViewById(R.id.drawer);
         nav = (NavigationView) findViewById(R.id.nav_view);
@@ -32,9 +35,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Intent i = getIntent();
-        Bundle b = i.getExtras();
-        login = b.getString("login");
     }
 
     @Override
