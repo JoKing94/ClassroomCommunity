@@ -1,5 +1,6 @@
 package iut.paci.classroomcommunity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -8,6 +9,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -49,14 +51,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId())
         {
             case R.id.nav_first:
-                //fm.beginTransaction().replace(R.id.contentFL,new FirstFragment()).commit();
                 Intent i = new Intent(getApplicationContext(),AmisActivityList.class);
                 Bundle b = new Bundle();
                 b.putString("login",login);
                 i.putExtras(b);
                 startActivity(i);
+                break;
             case R.id.nav_second:
-                System.out.println("bite");
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Exit Application?");
+                builder.setMessage("Click yes to exit!");
+                builder.setPositiveButton("Yes",new DialogInterface.OnClickListener()
+                    {public void onClick(DialogInterface dialog,int id)
+                    {
+                        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+                        homeIntent.addCategory( Intent.CATEGORY_HOME );
+                        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(homeIntent);
+                    }});
+
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener()
+                    {public void onClick(DialogInterface dialog, int id) {
+                        System.out.println("non");
+                    }
+                    });
+                AlertDialog dialog = builder.create();
+                dialog.show();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
