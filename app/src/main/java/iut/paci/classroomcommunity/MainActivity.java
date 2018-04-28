@@ -73,8 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener()
                     {public void onClick(DialogInterface dialog, int id) {
                         System.out.println("non");
-                    }
-                    });
+                    }});
                 AlertDialog dialog = builder.create();
                 dialog.show();
                 break;
