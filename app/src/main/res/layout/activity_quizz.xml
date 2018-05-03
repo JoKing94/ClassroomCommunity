@@ -54,16 +54,20 @@
 
             <Button
                 android:layout_width="match_parent"
-                android:text="Réponse1"/>
+                android:text="Réponse1"
+                android:id="@+id/Réponse1"/>
             <Button
                 android:layout_width="match_parent"
-                android:text="Réponse 2"/>
+                android:text="Réponse 2"
+            android:id="@+id/Réponse2"/>
             <Button
                 android:layout_width="match_parent"
-                android:text="Réponse 3"/>
+                android:text="Réponse 3"
+            android:id="@+id/Réponse3"/>
             <Button
                 android:layout_width="match_parent"
-                android:text="Réponse 4"/>
+                android:text="Réponse 4"
+                android:id="@+id/Réponse4"/>
         </GridLayout>
     </ScrollView>
 

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ClassroomCommunity</string>
+    <string name="first_item">Choisir un ami</string>
+    <string name="second_item">Quitter</string>
+    <string name="ouverture">Open</string>
+    <string name="fermeture">Close</string>
 </resources>
