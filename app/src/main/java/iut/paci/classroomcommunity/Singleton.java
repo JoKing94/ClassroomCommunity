@@ -48,12 +48,12 @@ public class Singleton  {
         return score;
     }
 
-    public int getid(String pseudo)
+    public int getid(String ppseudo)
     {
         int retour = 0;
         for(int i = 0; i<this.etudiant_list.length;i++)
         {
-            if(this.etudiant_list[i].getPseudo() == pseudo) {
+            if(this.etudiant_list[i].getPseudo().equals(ppseudo)) {
                 retour = this.etudiant_list[i].getId_e();
             }
     }

@@ -24,10 +24,7 @@ public class QuizzActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizz);
-        /*
-        Singleton g = Singleton.getInstance();
-        Toast.makeText(getApplicationContext(), g.getData(), Toast.LENGTH_LONG).show();
-        */
+
         Intent i = getIntent();
         Bundle b = i.getExtras();
         String login = b.getString("J1");
@@ -36,6 +33,7 @@ public class QuizzActivity extends AppCompatActivity {
         single.adversaire = j2;
         //Lancement de l'AsyncTask qui va soit créer la partie soit récupérer l'id de la partie
         String url = "http://193.70.22.32/android_partie.php?id_a="+single.getid(login)+"&id_b="+single.getid(j2);
+        Toast.makeText(getApplicationContext(), url, Toast.LENGTH_LONG).show();
         new PartiTask().execute(url);
 
         TextView tv = (TextView) findViewById(R.id.J1);
@@ -116,25 +114,15 @@ public class QuizzActivity extends AppCompatActivity {
         Bundle b = new Bundle();
         b.putString("login", single.mon_pseudo);
         i.putExtras(b);
-       /* String url = "http://193.70.22.32/android_score.php?id=1&score=" + single.compare_result() + "&pseudo=" + single.mon_pseudo;
-        new QuestionTask().execute(url);*/
+        String url = "http://193.70.22.32/android_score.php?id=1&score=" + single.compare_result() + "&id_e=" + single.getid(single.mon_pseudo) + "&id_p=" + Singleton.getInstance().id_partie;
+        new QuestionTask().execute(url);
         startActivity(i);
     }
     else
     {
         this.refresh();
     }
-/*
-        Intent quizz = new Intent(getApplicationContext(), QuizzActivity.class);
-        Bundle b = new Bundle();
-        TextView tv = (TextView) findViewById(R.id.J1);
-        TextView tv2 = (TextView) findViewById(R.id.J2);
-        b.putString("J2", tv.getText().toString());
-        b.putString("J1", tv2.getText().toString());
-        quizz.putExtras(b);
-        Singleton
-        startActivity(quizz);
-*/
+
     }
 
     public void refresh()
@@ -176,7 +164,7 @@ public class QuizzActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             Singleton.getInstance().id_partie = Integer.parseInt(s);
-            s = s + Singleton.getInstance().id_partie;
+            s = "" + Singleton.getInstance().id_partie;
             Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
             //question = new Gson().fromJson(s, Question.class);
         }

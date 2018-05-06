@@ -22,31 +22,8 @@ import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-
-    //private final OkHttpClient client = new OkHttpClient();
     public String resultat = new String();
-    private user p;
     public Singleton singleton;
-    /*
-    public String get(String url) throws IOException {
-        // Prepare the request.
-        Request request = new Request.Builder().url(url).build();
-        // Execute the request.
-        Response response = client.newCall(request).execute();
-        // Get the result.
-        return response.body().string();
-    }
-
-    public Etudiant moncall(String json)
-    {
-        Etudiant a = new Gson().fromJson(json, Etudiant.class);
-        return a;
-    }
-
-    public String bite() throws IOException {
-        Etudiant e = this.moncall(this.get("http://193.70.22.32/android_quiz.php"));
-        return e.getPseudo();
-    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
         this.singleton = Singleton.getInstance();
-        singleton.setData("jesuisun text");
         new FetchTask().execute("http://193.70.22.32/android.php");
         Button b = (Button) (findViewById(R.id.btn_login));
         final TextView tv_log=(TextView) findViewById(R.id.login);
@@ -73,12 +49,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(), "Va te faire foutre", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Identification Refusée", Toast.LENGTH_LONG).show();
                 }
 
             }
         });
-        //Toast.makeText(getApplicationContext(), this.resultat, Toast.LENGTH_LONG).show();
 
 
     }
@@ -110,7 +85,6 @@ public class LoginActivity extends AppCompatActivity {
         public void getQuestion()
         {
             OkHttpClient client = new OkHttpClient();
-            //String stringUrl = "http://193.70.22.32/question1.php";
             String stringUrl = "http://193.70.22.32/question.php";
             Request request = new Request.Builder().url(stringUrl).build();
             String rp = null;
@@ -122,24 +96,16 @@ public class LoginActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             Singleton.getInstance().json = rp;
-            //String[] enums = new Gson().fromJson(rp, String[].class);
-      //      Question q = new Gson().fromJson(rp, Question.class); marche avec q1
-           // Singleton.getInstance().question_list[0] = q;
-           // Question[] q = new Gson().fromJson(rp, Question[].class);
-
             List<Question> list = new Gson().fromJson(rp, new TypeToken<List<Question>>() {}.getType());
             for(int i = 0; i<list.size(); i++)
             {
                 Singleton.getInstance().question_list[i] = list.get(i);
             }
-            Singleton.getInstance().taille = list.size();
-
         }
 
         public void getEtudiant()
         {
             OkHttpClient client = new OkHttpClient();
-            //String stringUrl = "http://193.70.22.32/question1.php";
             String stringUrl = "http://193.70.22.32/android_etudiant.php";
             Request request = new Request.Builder().url(stringUrl).build();
             String rp = null;
@@ -151,31 +117,16 @@ public class LoginActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             Singleton.getInstance().json = rp;
-            //String[] enums = new Gson().fromJson(rp, String[].class);
-            //      Question q = new Gson().fromJson(rp, Question.class); marche avec q1
-            // Singleton.getInstance().question_list[0] = q;
-            // Question[] q = new Gson().fromJson(rp, Question[].class);
-
             List<jtudiant> list = new Gson().fromJson(rp, new TypeToken<List<jtudiant>>() {}.getType());
             Singleton.getInstance().etudiant_list = new jtudiant[list.size()];
             for(int i = 0; i<list.size(); i++)
             {
                 Singleton.getInstance().etudiant_list[i] = list.get(i);
             }
-            Singleton.getInstance().taille = list.size();
-
         }
-
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            resultat = s;
-            //Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-            user p = new Gson().fromJson(s, user.class);
-           // Toast.makeText(getApplicationContext(), p.getPseudo(), Toast.LENGTH_LONG).show();
-            //String taille = "taille : " +   Singleton.getInstance().taille;
-            Toast.makeText(getApplicationContext(),  Singleton.getInstance().json, Toast.LENGTH_LONG).show();
-
         }
     }
 
