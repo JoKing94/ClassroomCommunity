@@ -11,6 +11,9 @@ public class Singleton  {
     public String json = "";
     public int question_actuelle =  0;
     public int[] reponse = new int[4];
+    public int id_partie = 0;
+    public jtudiant[] etudiant_list;
+    public String adversaire = "";
     // other instance variables can be here
 
     private Singleton() {};
@@ -43,5 +46,17 @@ public class Singleton  {
             }
         }
         return score;
+    }
+
+    public int getid(String pseudo)
+    {
+        int retour = 0;
+        for(int i = 0; i<this.etudiant_list.length;i++)
+        {
+            if(this.etudiant_list[i].getPseudo() == pseudo) {
+                retour = this.etudiant_list[i].getId_e();
+            }
+    }
+        return retour;
     }
 }

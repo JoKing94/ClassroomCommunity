@@ -100,11 +100,11 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 Response response = client.newCall(request).execute();
                 this.getQuestion();
+                this.getEtudiant();
                 return response.body().string();
             } catch (IOException e) {
                 return null;
             }
-
         }
 
         public void getQuestion()
@@ -127,11 +127,40 @@ public class LoginActivity extends AppCompatActivity {
            // Singleton.getInstance().question_list[0] = q;
            // Question[] q = new Gson().fromJson(rp, Question[].class);
 
-
             List<Question> list = new Gson().fromJson(rp, new TypeToken<List<Question>>() {}.getType());
             for(int i = 0; i<list.size(); i++)
             {
                 Singleton.getInstance().question_list[i] = list.get(i);
+            }
+            Singleton.getInstance().taille = list.size();
+
+        }
+
+        public void getEtudiant()
+        {
+            OkHttpClient client = new OkHttpClient();
+            //String stringUrl = "http://193.70.22.32/question1.php";
+            String stringUrl = "http://193.70.22.32/android_etudiant.php";
+            Request request = new Request.Builder().url(stringUrl).build();
+            String rp = null;
+            Response response = null;
+            try {
+                response = client.newCall(request).execute();
+                rp = response.body().string();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Singleton.getInstance().json = rp;
+            //String[] enums = new Gson().fromJson(rp, String[].class);
+            //      Question q = new Gson().fromJson(rp, Question.class); marche avec q1
+            // Singleton.getInstance().question_list[0] = q;
+            // Question[] q = new Gson().fromJson(rp, Question[].class);
+
+            List<jtudiant> list = new Gson().fromJson(rp, new TypeToken<List<jtudiant>>() {}.getType());
+            Singleton.getInstance().etudiant_list = new jtudiant[list.size()];
+            for(int i = 0; i<list.size(); i++)
+            {
+                Singleton.getInstance().etudiant_list[i] = list.get(i);
             }
             Singleton.getInstance().taille = list.size();
 
@@ -146,6 +175,7 @@ public class LoginActivity extends AppCompatActivity {
            // Toast.makeText(getApplicationContext(), p.getPseudo(), Toast.LENGTH_LONG).show();
             //String taille = "taille : " +   Singleton.getInstance().taille;
             Toast.makeText(getApplicationContext(),  Singleton.getInstance().json, Toast.LENGTH_LONG).show();
+
         }
     }
 

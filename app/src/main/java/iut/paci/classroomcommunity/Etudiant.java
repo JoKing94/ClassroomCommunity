@@ -6,12 +6,17 @@ package iut.paci.classroomcommunity;
 
 public class Etudiant {
     private String pseudo;
-    boolean statut;
+    boolean statut = true;
 
     public Etudiant(String name, boolean present)
     {
         this.pseudo = name;
         this.statut = present;
+    }
+
+    public Etudiant(String name)
+    {
+        this.pseudo = name;
     }
 
     public String getPseudo()

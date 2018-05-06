@@ -14,10 +14,15 @@ public class ListeEtudiant
 
     public static ArrayList ajout(){
         ArrayList<Etudiant> l = new ArrayList<>();
-
-        l.add(new Etudiant("Aurel",true));
-        l.add(new Etudiant("Arond",false));
-        l.add(new Etudiant("Nicolas",true));
+        Singleton single = Singleton.getInstance();
+        String s = "";
+        Boolean bool = true;
+        for(int i = 0; i<single.etudiant_list.length;i++)
+        {
+            s=single.etudiant_list[i].getPseudo();
+            bool = single.etudiant_list[i].getStatus();
+            l.add(new Etudiant(s,bool));
+        }
         return l;
     }
 

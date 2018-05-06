@@ -24,14 +24,20 @@ public class QuizzActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizz);
-        //String url = "http://193.70.22.32/android_question.php?";
-        //new QuestionTask().execute(url);
+        /*
         Singleton g = Singleton.getInstance();
         Toast.makeText(getApplicationContext(), g.getData(), Toast.LENGTH_LONG).show();
+        */
         Intent i = getIntent();
         Bundle b = i.getExtras();
         String login = b.getString("J1");
         String j2 = b.getString("J2");
+        Singleton single = Singleton.getInstance();
+        single.adversaire = j2;
+        //Lancement de l'AsyncTask qui va soit créer la partie soit récupérer l'id de la partie
+        String url = "http://193.70.22.32/android_partie.php?id_a="+single.getid(login)+"&id_b="+single.getid(j2);
+        new PartiTask().execute(url);
+
         TextView tv = (TextView) findViewById(R.id.J1);
         TextView tv2 = (TextView) findViewById(R.id.J2);
         tv.setText(login);
@@ -83,7 +89,9 @@ public class QuizzActivity extends AppCompatActivity {
             try {
                 Response response = client.newCall(request).execute();
                 return response.body().string();
-            } catch (IOException e) {
+            }
+            catch (IOException e)
+            {
                 return null;
             }
         }
@@ -108,8 +116,9 @@ public class QuizzActivity extends AppCompatActivity {
         Bundle b = new Bundle();
         b.putString("login", single.mon_pseudo);
         i.putExtras(b);
+       /* String url = "http://193.70.22.32/android_score.php?id=1&score=" + single.compare_result() + "&pseudo=" + single.mon_pseudo;
+        new QuestionTask().execute(url);*/
         startActivity(i);
-
     }
     else
     {
@@ -141,5 +150,35 @@ public class QuizzActivity extends AppCompatActivity {
         rep3.setText(Singleton.getInstance().question_list[single.question_actuelle].getProposition3());
         TextView rep4 = (TextView) findViewById(R.id.Réponse4);
         rep4.setText(Singleton.getInstance().question_list[single.question_actuelle].getProposition4());
+    }
+
+    private class PartiTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+        @Override
+        protected String doInBackground(String... strings) {
+            OkHttpClient client = new OkHttpClient();
+            Singleton single = Singleton.getInstance();
+            String stringUrl = "http://193.70.22.32/android_partie.php?id_a="+single.getid(single.mon_pseudo)+"&id_b="+single.getid(single.adversaire);
+            Request request = new Request.Builder().url(stringUrl).build();
+            try {
+                Response response = client.newCall(request).execute();
+                //Singleton.getInstance().id_partie = stringUrl;
+                return response.body().string();
+            } catch (IOException e) {
+                return null;
+            }
+        }
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Singleton.getInstance().id_partie = Integer.parseInt(s);
+            s = s + Singleton.getInstance().id_partie;
+            Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+            //question = new Gson().fromJson(s, Question.class);
+        }
     }
 }
