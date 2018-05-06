@@ -16,11 +16,12 @@
             android:textSize="25dp"
             android:layout_alignParentLeft="true"
             android:id="@+id/J1"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ProgressBar
+            android:layout_height="40dp"
+            android:layout_width="200dp"
             android:textSize="25dp"
-            android:text="temps restant"
+            style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+            android:id="@+id/progress"
             android:layout_centerHorizontal="true"/>
         <TextView
             android:layout_width="wrap_content"
@@ -70,6 +71,4 @@
                 android:id="@+id/Réponse4"/>
         </GridLayout>
     </ScrollView>
-
-
 </RelativeLayout>

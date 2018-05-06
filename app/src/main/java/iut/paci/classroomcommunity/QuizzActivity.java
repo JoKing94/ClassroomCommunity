@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,12 +20,13 @@ import okhttp3.Response;
 
 public class QuizzActivity extends AppCompatActivity {
     public Question question;
-
+    ProgressBar pb;
+    int ip = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizz);
-
+        Singleton.getInstance().question_actuelle = 0; //permet de relancer une partie.
         Intent i = getIntent();
         Bundle b = i.getExtras();
         String login = b.getString("J1");
@@ -36,6 +38,9 @@ public class QuizzActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), url, Toast.LENGTH_LONG).show();
         new PartiTask().execute(url);
 
+        pb = (ProgressBar) findViewById(R.id.progress);
+        pb.setMax(Singleton.getInstance().question_list.length);
+
         TextView tv = (TextView) findViewById(R.id.J1);
         TextView tv2 = (TextView) findViewById(R.id.J2);
         tv.setText(login);
@@ -45,6 +50,8 @@ public class QuizzActivity extends AppCompatActivity {
         rp1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ip = Singleton.getInstance().compare_result();
+                pb.setProgress(ip);
                 QuizzActivity.this.reponse(1);
             }
         });
@@ -53,6 +60,8 @@ public class QuizzActivity extends AppCompatActivity {
         rp2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ip = Singleton.getInstance().compare_result();
+                pb.setProgress(ip);
                 QuizzActivity.this.reponse(2);
             }});
 
@@ -60,6 +69,8 @@ public class QuizzActivity extends AppCompatActivity {
         rp3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ip = Singleton.getInstance().compare_result();
+                pb.setProgress(ip);
                 QuizzActivity.this.reponse(3);
             }});
 
@@ -67,6 +78,8 @@ public class QuizzActivity extends AppCompatActivity {
         rp4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ip = Singleton.getInstance().compare_result();
+                pb.setProgress(ip);
                 QuizzActivity.this.reponse(4);
             }});
 
@@ -96,8 +109,6 @@ public class QuizzActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-            question = new Gson().fromJson(s, Question.class);
         }
     }
 
@@ -109,12 +120,13 @@ public class QuizzActivity extends AppCompatActivity {
     if(single.question_actuelle == single.question_list.length)
     {
         String ss = "Votre Score est de " + single.compare_result() + "/" + single.question_actuelle;
-        Toast.makeText(getApplicationContext(), ss, Toast.LENGTH_LONG).show();
+       // Toast.makeText(getApplicationContext(), ss, Toast.LENGTH_LONG).show();
         Intent i = new Intent(getApplicationContext(),MainActivity.class);
         Bundle b = new Bundle();
         b.putString("login", single.mon_pseudo);
         i.putExtras(b);
-        String url = "http://193.70.22.32/android_score.php?id=1&score=" + single.compare_result() + "&id_e=" + single.getid(single.mon_pseudo) + "&id_p=" + Singleton.getInstance().id_partie;
+        String url = "http://193.70.22.32/android_score.php?score=" + single.compare_result() + "&id_e=" + single.getid(single.mon_pseudo) + "&id_p=" + Singleton.getInstance().id_partie;
+        Toast.makeText(getApplicationContext(), url, Toast.LENGTH_LONG).show();
         new QuestionTask().execute(url);
         startActivity(i);
     }
@@ -147,7 +159,8 @@ public class QuizzActivity extends AppCompatActivity {
             super.onPreExecute();
         }
         @Override
-        protected String doInBackground(String... strings) {
+        protected String doInBackground(String... strings)
+        {
             OkHttpClient client = new OkHttpClient();
             Singleton single = Singleton.getInstance();
             String stringUrl = "http://193.70.22.32/android_partie.php?id_a="+single.getid(single.mon_pseudo)+"&id_b="+single.getid(single.adversaire);
@@ -166,7 +179,6 @@ public class QuizzActivity extends AppCompatActivity {
             Singleton.getInstance().id_partie = Integer.parseInt(s);
             s = "" + Singleton.getInstance().id_partie;
             Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-            //question = new Gson().fromJson(s, Question.class);
         }
     }
 }

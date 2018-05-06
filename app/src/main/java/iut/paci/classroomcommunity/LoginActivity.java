@@ -28,10 +28,13 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_login);
         this.singleton = Singleton.getInstance();
         new FetchTask().execute("http://193.70.22.32/android.php");
+        for(long i = 0; i<99999999; i++)
+        {
+            i++;
+        }
         Button b = (Button) (findViewById(R.id.btn_login));
         final TextView tv_log=(TextView) findViewById(R.id.login);
         final TextView tv_pass=(TextView) findViewById(R.id.pass);
